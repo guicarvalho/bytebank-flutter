@@ -6,9 +6,4 @@ class Transfer {
     this.accountNumber,
     this.value,
   );
-
-  @override
-  String toString() {
-    return "Transfer {accountNumer: $accountNumber, value: $value}";
-  }
 }

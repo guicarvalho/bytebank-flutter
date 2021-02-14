@@ -1,46 +1,33 @@
 import 'package:bytebank/components/transfer/item.dart';
-import 'package:bytebank/models/transfer.dart';
+import 'package:bytebank/models/transfers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const _appBarTitle = "Transferências";
 
-class TransferList extends StatefulWidget {
-  final List<Transfer> _transfers = List();
-
-  @override
-  _TransferListState createState() => _TransferListState();
-}
-
-class _TransferListState extends State<TransferList> {
+class TransferList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarTitle),
       ),
-      body: ListView.builder(
-        itemCount: widget._transfers.length,
-        itemBuilder: (context, index) {
-          final transfer = widget._transfers[index];
+      body: Consumer<Transfers>(
+        builder: (context, transfers, child) {
+          return ListView.builder(
+            itemCount: transfers.transfers.length,
+            itemBuilder: (context, index) {
+              final transfer = transfers.transfers[index];
 
-          return TransferItem(transfer);
+              return TransferItem(transfer);
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "createTransfer")
-              .then((transfer) => _updateTransfers(transfer));
-        },
+        onPressed: () => Navigator.pushNamed(context, "createTransfer"),
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void _updateTransfers(transfer) {
-    setState(() {
-      if (transfer != null) {
-        widget._transfers.add(transfer);
-      }
-    });
   }
 }

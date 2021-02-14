@@ -13,12 +13,8 @@ class TransferItem extends StatelessWidget {
         leading: Icon(
           Icons.monetization_on,
         ),
-        title: Text(
-          _transfer.value.toString(),
-        ),
-        subtitle: Text(
-          _transfer.accountNumber.toString(),
-        ),
+        title: Text("R\$ ${_transfer.value.toString()}"),
+        subtitle: Text("Conta: ${_transfer.accountNumber.toString()}"),
       ),
     );
   }

@@ -2,13 +2,25 @@ import 'package:bytebank/models/balance.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:bytebank/screens/deposit/form.dart';
 import 'package:bytebank/screens/transfer/form.dart';
+import 'package:bytebank/screens/transfer/list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(ChangeNotifierProvider(
-      create: (context) => Balance(0),
-      child: BytebankApp(),
-    ));
+import 'models/transfers.dart';
+
+void main() => runApp(
+      MultiProvider(
+        child: BytebankApp(),
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => Balance(0),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => Transfers(),
+          ),
+        ],
+      ),
+    );
 
 class BytebankApp extends StatelessWidget {
   @override
@@ -22,6 +34,7 @@ class BytebankApp extends StatelessWidget {
       routes: {
         "/": (context) => Dashboard(),
         "createTransfer": (context) => TransferForm(),
+        "transferList": (context) => TransferList(),
         "createDeposit": (context) => DepositForm()
       },
     );
